@@ -32,7 +32,7 @@ var path = {
         styles: "./build/css",
         js: "./build/js",
         fonts: "./build/fonts",
-        images: "./build/img"
+        images: "./build/images"
     },
 
     src: {
@@ -42,7 +42,7 @@ var path = {
         css: "./src/css",
         js: "./src/js/*.js",
         fonts: "./src/fonts/**/*.*",
-        images: "./src/img/**/*.*"
+        images: "./src/images/**/*.*"
     },
 
     watch: {
@@ -50,7 +50,7 @@ var path = {
         styles: "./src/scss/**/*.scss",
         js: "./src/js/**/*.js",
         fonts: "./src/fonts/**/*.*",
-        images: "./src/img/**/*.*"
+        images: "./src/images/**/*.*"
     },
 
     clean: "./build"

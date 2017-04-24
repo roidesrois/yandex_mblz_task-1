@@ -93,7 +93,7 @@ body {
       height: 6px;
       margin-top: -2px;
       content: '';
-      background: url(../img/icons/select-icon.svg);
+      background: url(../images/icons/select-icon.svg);
       -webkit-transition: -webkit-transform .1s ease-out;
       transition: -webkit-transform .1s ease-out;
       transition: transform .1s ease-out;
@@ -121,7 +121,7 @@ body {
     right: 7px;
     width: 28px;
     height: 28px;
-    background: url(../img/icons/calendar.svg);
+    background: url(../images/icons/calendar.svg);
     background-size: contain;
     opacity: .4; }
   .field__icon_clear {
@@ -129,7 +129,7 @@ body {
     right: 14px;
     width: 14px;
     height: 14px;
-    background: url(../img/icons/close.svg) no-repeat;
+    background: url(../images/icons/close.svg) no-repeat;
     opacity: .4; }
   .field__icon_hidden {
     display: none; }
@@ -321,7 +321,7 @@ body {
   right: 22px;
   width: 14px;
   height: 14px;
-  background: url("../img/icons/close.svg");
+  background: url("../images/icons/close.svg");
   cursor: pointer; }
 
 .lecturer-popup img {
