@@ -1,26 +1,26 @@
 (function() {
 
-    var now = new Date(2016, 10, 1);
+    var now = new Date(2016, 10, 10);
 
-    var contentElem = document.querySelector(".container");
-    var scheduleElem = document.querySelector(".schedule");
-    var schoolSelectElem = document.querySelector("#school");
-    var lecturerSelectElem = document.querySelector("#lecturer");
-    var dateSelectElem = document.querySelector("#date");
+    var container = document.querySelector(".container"),
+        schedule = document.querySelector(".schedule"),
+        schoolSelect = document.querySelector("#school"),
+        dateSelect = document.querySelector("#date"),
+        lecturerSelect = document.querySelector("#lecturer");
 
 
     // рендерим список преподавателей и лекции
-    renderLecturers(lecturerSelectElem);
+    renderLecturers(lecturerSelect);
     var filteredLectures = filterLectures();
-    renderLectures(scheduleElem, filteredLectures);
+    renderLectures(schedule, filteredLectures);
 
 
     // вешаем обработчики на все селекты
-    [schoolSelectElem, lecturerSelectElem, dateSelectElem].forEach(function(selectElem) {
+    [schoolSelect, lecturerSelect, dateSelect].forEach(function(selectElem) {
         selectElem.addEventListener("change", function(event) {
             event.preventDefault();
-            var filteredLectures = filterLectures(schoolSelectElem, lecturerSelectElem, dateSelectElem);
-            renderLectures(scheduleElem, filteredLectures);
+            var filteredLectures = filterLectures(schoolSelect, lecturerSelect, dateSelect);
+            renderLectures(schedule, filteredLectures);
         });
 
         // разворачиваем select icon на 180*
@@ -38,7 +38,7 @@
 
     /**
      * @calendar
-     * @description Инициализируем custom-ый datepicker
+     * @description Инициализируем кастомный datepicker
      */
     function DatePicker(el) {
         this.el = el;
@@ -99,9 +99,9 @@
 
     /**
      * Функция фильтрует данные на основе активных фильтров.
-     * @param schoolSelectElem {Element} Выпадающий список со школами.
-     * @param lecturerSelectElem {Element} Выпадающий список с преподавателями.
-     * @param dateSelectElem {Element} Datepicker.
+     * @param schoolSelect {Element} Выпадающий список со школами.
+     * @param lecturerSelect {Element} Выпадающий список с преподавателями.
+     * @param dateSelect {Element} Datepicker.
      * @returns {Array} Массив отфильтрованных лекций.
      */
     function filterLectures() {
@@ -109,7 +109,7 @@
 
 
         // фильтрация по школе
-        var schoolValue = schoolSelectElem.value;
+        var schoolValue = schoolSelect.value;
 
         if (schoolValue !== "all") {
 
@@ -125,8 +125,8 @@
         }
 
         // фильтрация по дате
-        if (dateSelectElem.value) {
-            var dateValue = formatDate(new Date(Date.parse(dateSelectElem.value)));
+        if (dateSelect.value) {
+            var dateValue = formatDate(new Date(Date.parse(dateSelect.value)));
 
             lectures = lectures.filter(function(lecture) {
                 var flag = false;
@@ -144,7 +144,7 @@
 
 
         // сортировка по преподавателю
-        var lecturerValue = lecturerSelectElem.value;
+        var lecturerValue = lecturerSelect.value;
 
         if (lecturerValue !== "all") {
 
@@ -166,12 +166,12 @@
 
     /**
      * Функция рендерит расписание на основе переданного массива лекций.
-     * @param scheduleElem {Element} Элемент расписания на странице.
+     * @param schedule {Element} Элемент расписания на странице.
      * @param lectures {Array} Массив лекций.
      */
-    function renderLectures(scheduleElem, lectures) {
-        var lecturesElem = scheduleElem.querySelector(".schedule__lectures");
-        var noResultsElem = scheduleElem.querySelector(".schedule__not-found");
+    function renderLectures(schedule, lectures) {
+        var lecturesElem = schedule.querySelector(".schedule__lectures");
+        var noResultsElem = schedule.querySelector(".schedule__not-found");
 
         lecturesElem.innerHTML = "";
 
@@ -225,7 +225,7 @@
 
 
     function showLecturerPopup(lecturerId, clickPos) {
-        var popup = contentElem.querySelector(".popup");
+        var popup = container.querySelector(".popup");
         popup.innerHTML = "";
 
         var fragment = document.createDocumentFragment();
@@ -255,9 +255,9 @@
 
     /**
      * Добавляет в выпадающий список всех преподавателей.
-     * @param lecturerSelectElem {Element} Элемент выпадающего списка с преподавателями.
+     * @param lecturerSelect {Element} Элемент выпадающего списка с преподавателями.
      */
-    function renderLecturers(lecturerSelectElem) {
+    function renderLecturers(lecturerSelect) {
         var fragment = document.createDocumentFragment();
 
         var allOption = document.createElement("option");
@@ -272,7 +272,7 @@
             fragment.appendChild(currentOption);
         });
 
-        lecturerSelectElem.appendChild(fragment);
+        lecturerSelect.appendChild(fragment);
     }
 
 
