@@ -41,26 +41,27 @@
      * @description Инициализируем кастомный datepicker
      */
     function DatePicker(el) {
+        self = this;
         this.el = el;
         this.dateControl = el.querySelector('[name=date]');
         this.pickerIcon = el.querySelector(".field__icon_calendar");
         this.clearIcon = el.querySelector(".field__icon_clear");
 
-        this.init = function() {
+        self.init = function() {
             this.dateControl.setAttribute("readonly", "readonly");
             this.initCustomDatePicker();
         },
-        this.setValue = function(datePicker) {
+        self.setValue = function(datePicker) {
             this.dateControl.value = formatDate(datePicker.getDate());
             this.pickerIcon.classList.add("field__icon_hidden");
             this.clearIcon.classList.remove("field__icon_hidden");
         },
-        this.clearValue = function(datePicker) {
+        self.clearValue = function(datePicker) {
             datePicker.setDate(null);
             this.clearIcon.classList.add("field__icon_hidden");
             this.pickerIcon.classList.remove("field__icon_hidden");
         },
-        this.initCustomDatePicker = function(datePicker) {
+        self.initCustomDatePicker = function(datePicker) {
             var datePicker = new Pikaday({
                 field: this.dateControl,
                 firstDay: 1,
@@ -71,11 +72,11 @@
                     weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
                     weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
                 },
-                onSelect: () => this.setValue(datePicker)
+                onSelect: function() {self.setValue(datePicker)},
             });
 
-            this.pickerIcon.addEventListener("click", () => datePicker.show());
-            this.clearIcon.addEventListener("click", () => this.clearValue(datePicker));
+            this.pickerIcon.addEventListener("click", function() {datePicker.show()});
+            this.clearIcon.addEventListener("click", function() {self.clearValue(datePicker)});
         }
     }
 
@@ -86,8 +87,8 @@
     function formatDate(date) {
         var year = date.getFullYear(),
             month = date.getMonth() + 1,
-            day = date.getDate();
-            hours = date.getUTCHours();
+            day = date.getDate(),
+            hours = date.getUTCHours(),
             minutes = date.getUTCMinutes();
 
         return [leadZero(day), leadZero(month),year].join('.');
@@ -183,7 +184,7 @@
 
             lectures.forEach(function (rawLectureData) {
                 var lectureData = {};
-                date = new Date(Date.parse(rawLectureData.datetime));
+                var date = new Date(Date.parse(rawLectureData.datetime));
                 lectureData.datetime = formatDate(date)+ ", "+[leadZero(date.getUTCHours()),leadZero(date.getUTCMinutes())].join(':');
                 lectureData.name = rawLectureData.name;
                 lectureData.room = rawLectureData.room;
@@ -242,8 +243,8 @@
 
         popup.appendChild(fragment);
 
-        popup.style.left = window.pageXOffset + clickPos['x']+'px';
-        popup.style.top = window.pageYOffset + clickPos['y']+'px';
+        popup.style.left = window.pageXOffset + clickPos.x+'px';
+        popup.style.top = window.pageYOffset + clickPos.y+'px';
 
         var closePopup = document.querySelector(".lecturer-popup__close");
         closePopup.addEventListener("click", function(event) {
